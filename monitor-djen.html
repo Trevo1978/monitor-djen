@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor DJEN/DJE — Thiago Trevizani Rocchetti</title>
+<style>
+  :root {
+    --azul: #1a2b6d;
+    --azul-medio: #2d4a9e;
+    --azul-claro: #e8edf8;
+    --vermelho: #e53935;
+    --laranja: #f57c00;
+    --verde: #2e7d32;
+    --cinza: #9e9e9e;
+    --texto: #212121;
+    --borda: #dde2f0;
+    --fundo: #f4f6fb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    font-size: 13px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--azul);
+    color: white;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  header .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header .logo span.icon { font-size: 26px; }
+  header .logo div { line-height: 1.3; }
+  header .logo strong { font-size: 16px; letter-spacing: 0.3px; }
+  header .logo small { font-size: 11px; opacity: 0.75; display: block; }
+  header nav { display: flex; gap: 12px; }
+  header nav button {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 7px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  header nav button:hover { background: rgba(255,255,255,0.22); }
+  header nav button.primary {
+    background: #2d4a9e;
+    border-color: #3d5abe;
+  }
+
+  /* MAIN LAYOUT */
+  main { max-width: 1400px; margin: 0 auto; padding: 20px 20px; }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--borda);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--azul);
+    color: white;
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-body { padding: 18px; }
+
+  /* FORM BUSCA */
+  .form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 100px 160px 160px 180px auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .form-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--texto);
+    background: white;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--azul-medio);
+  }
+  .btn {
+    padding: 9px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    transition: filter 0.2s;
+  }
+  .btn:hover { filter: brightness(1.1); }
+  .btn-primary { background: var(--azul-medio); color: white; }
+  .btn-secondary { background: var(--fundo); color: var(--texto); border: 1.5px solid var(--borda); }
+  .btn-success { background: #388e3c; color: white; }
+
+  /* BRIEFING */
+  .briefing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .briefing-count { color: #555; font-size: 12px; }
+  .briefing-count strong { color: var(--azul); }
+  .alert-badge {
+    background: #fff3e0;
+    border: 1px solid #ffe0b2;
+    color: var(--laranja);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* CARDS RESUMO */
+  .resumo-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .resumo-card {
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+  .resumo-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .resumo-card .num { font-size: 32px; font-weight: 700; line-height: 1; }
+  .resumo-card .label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; margin-top: 5px; text-transform: uppercase; }
+  .resumo-card.vencidos { border-color: #ffcdd2; background: #fff5f5; color: var(--vermelho); }
+  .resumo-card.urgentes { border-color: #ffcdd2; background: #fff5f5; color: var(--vermelho); }
+  .resumo-card.atencao  { border-color: #ffe0b2; background: #fffbf5; color: var(--laranja); }
+  .resumo-card.normal   { border-color: #c8e6c9; background: #f5fbf5; color: var(--verde); }
+  .resumo-card.semprazo { border-color: #e0e0e0; background: #f9f9f9; color: var(--cinza); }
+
+  /* TRIBUNAL TAGS */
+  .tribunal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .tribunal-tag {
+    background: var(--azul-claro);
+    color: var(--azul);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .tribunal-tag:hover { background: var(--azul-medio); color: white; }
+
+  /* FILTROS BAR */
+  .filtros-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 0;
+    flex-wrap: wrap;
+  }
+  .filtro-btn {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--borda);
+    background: white;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .filtro-btn.ativo { border-color: var(--azul-medio); background: var(--azul-claro); color: var(--azul); }
+  .filtro-btn .dot {
+    width: 9px; height: 9px; border-radius: 50%; display: inline-block;
+  }
+  .dot-vencido { background: #e53935; }
+  .dot-urgente { background: #e53935; }
+  .dot-atencao { background: #f57c00; }
+  .dot-normal  { background: #388e3c; }
+  .dot-semprazo { background: #bdbdbd; }
+  .dot-todos   { background: var(--azul); }
+
+  .filtros-bar select {
+    padding: 5px 10px;
+    border: 1.5px solid var(--borda);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--texto);
+  }
+  .busca-inline {
+    padding: 5px 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 6px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 200px;
+  }
+  .count-label {
+    margin-left: auto;
+    font-size: 12px;
+    color: #555;
+    white-space: nowrap;
+  }
+  .count-label strong { color: var(--azul); }
+
+  /* TABELA */
+  .tabela-wrapper { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead tr {
+    background: var(--azul);
+    color: white;
+  }
+  thead th {
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--borda);
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  tbody tr:hover { background: var(--azul-claro); }
+  tbody td {
+    padding: 11px 14px;
+    vertical-align: top;
+  }
+
+  /* BADGE URGÊNCIA */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .badge-vencido { background: #ffebee; color: #c62828; }
+  .badge-urgente { background: #ffebee; color: #c62828; }
+  .badge-atencao { background: #fff3e0; color: #e65100; }
+  .badge-normal  { background: #e8f5e9; color: #1b5e20; }
+  .badge-semprazo { background: #f3f3f3; color: #757575; }
+
+  /* PROCESSO */
+  .processo-num {
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--azul-medio);
+    font-family: monospace;
+    letter-spacing: 0.3px;
+  }
+  .processo-desc {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+    max-width: 340px;
+  }
+
+  /* TRIBUNAL BADGE */
+  .trib-badge {
+    background: var(--azul-claro);
+    color: var(--azul);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* VENCIMENTO */
+  .venc-data {
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .venc-data.vencido { color: #c62828; }
+  .venc-data.urgente { color: #c62828; }
+  .venc-data.atencao { color: #e65100; }
+  .venc-data.normal  { color: #1b5e20; }
+
+  /* STATUS */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap;
+  }
+  .status-badge .circle {
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid currentColor;
+  }
+
+  /* SETA */
+  .seta { color: #aaa; font-size: 14px; }
+
+  /* MÉTRICAS */
+  .metricas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .metrica-section h4 {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .barra-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .barra-label { width: 130px; font-size: 12px; flex-shrink: 0; }
+  .barra-track {
+    flex: 1;
+    height: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .barra-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.4s;
+  }
+  .barra-count { font-size: 12px; color: #555; width: 50px; text-align: right; flex-shrink: 0; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 12px;
+    width: 680px;
+    max-width: 95vw;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .modal-header {
+    background: var(--azul);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+  }
+  .modal-header h3 { font-size: 14px; }
+  .modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.75;
+  }
+  .modal-close:hover { opacity: 1; }
+  .modal-body { padding: 20px; }
+  .detalhe-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .detalhe-chave {
+    width: 140px;
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #888;
+    padding-top: 2px;
+  }
+  .detalhe-valor { font-size: 13px; color: var(--texto); flex: 1; }
+  .detalhe-divider { border: none; border-top: 1px solid var(--borda); margin: 14px 0; }
+  .texto-publicacao {
+    background: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.7;
+    max-height: 220px;
+    overflow-y: auto;
+    color: #333;
+    white-space: pre-wrap;
+  }
+  .modal-actions {
+    padding: 14px 20px;
+    border-top: 1px solid var(--borda);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  /* LOADING */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-size: 13px;
+  }
+  .spinner {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--borda);
+    border-top-color: var(--azul-medio);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 40px; color: #aaa; }
+  .empty .icon { font-size: 36px; margin-bottom: 10px; }
+
+  /* SYNC INFO */
+  .sync-info {
+    text-align: right;
+    font-size: 11px;
+    color: #aaa;
+    padding: 6px 0 0;
+  }
+  .sync-info strong { color: var(--verde); }
+
+  @media (max-width: 900px) {
+    .form-row { grid-template-columns: 1fr 1fr; }
+    .resumo-cards { grid-template-columns: repeat(3, 1fr); }
+    .metricas-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="icon">⚖️</span>
+    <div>
+      <strong>Monitor DJEN/DJE</strong>
+      <small>Diário de Justiça Eletrônico — Thiago Trevizani Rocchetti | OAB/SP 216109</small>
+    </div>
+  </div>
+  <nav>
+    <button onclick="exportarExcel()" class="btn-secondary">
+      📊 Exportar Excel
+    </button>
+    <button onclick="abrirConfig()" class="btn-secondary">
+      ⚙️ Configurações
+    </button>
+    <button onclick="sincronizar()" class="primary">
+      🔄 Sincronizar
+    </button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- CONSULTA -->
+  <div class="card">
+    <div class="card-header">📋 CONSULTA DE PUBLICAÇÕES — DJEN/DJE</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome do Advogado *</label>
+          <input type="text" id="nome" value="Thiago Trevizani Rocchetti" placeholder="Nome completo">
+        </div>
+        <div class="form-group">
+          <label>OAB Nº</label>
+          <input type="text" id="oab" value="216109" placeholder="000000">
+        </div>
+        <div class="form-group">
+          <label>UF</label>
+          <select id="uf">
+            <option value="SP" selected>SP</option>
+            <option value="RJ">RJ</option>
+            <option value="MG">MG</option>
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Data Início</label>
+          <input type="date" id="dataInicio">
+        </div>
+        <div class="form-group">
+          <label>Data Fim</label>
+          <input type="date" id="dataFim">
+        </div>
+        <div class="form-group">
+          <label>Tribunal</label>
+          <select id="tribunal">
+            <option value="">Todos os tribunais</option>
+            <option value="TJSP">TJSP</option>
+            <option value="TRT2">TRT2</option>
+            <option value="STJ">STJ</option>
+            <option value="TRF3">TRF3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" onclick="buscarPublicacoes()">
+            🔍 Buscar
+          </button>
+        </div>
+      </div>
+      <div class="sync-info" id="syncInfo">Última sincronização: <strong id="ultimaSync">—</strong></div>
+    </div>
+  </div>
+
+  <!-- BRIEFING -->
+  <div class="card" id="secaoBriefing" style="display:none">
+    <div class="card-header">📄 BRIEFING EXECUTIVO</div>
+    <div class="card-body">
+      <div class="briefing-header">
+        <div>
+          <div class="briefing-count"><strong id="totalPubs">0</strong> publicações encontradas</div>
+          <div id="alertaUrgente" style="display:none; margin-top:6px;">
+            <span class="alert-badge">⚠️ <span id="alertaTexto">requer atenção imediata</span></span>
+          </div>
+        </div>
+        <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar Planilha</button>
+      </div>
+
+      <div class="resumo-cards">
+        <div class="resumo-card vencidos" onclick="filtrarPor('vencido')">
+          <div class="num" id="numVencidos">0</div>
+          <div class="label">Vencidos</div>
+        </div>
+        <div class="resumo-card urgentes" onclick="filtrarPor('urgente')">
+          <div class="num" id="numUrgentes">0</div>
+          <div class="label">Urgentes</div>
+        </div>
+        <div class="resumo-card atencao" onclick="filtrarPor('atencao')">
+          <div class="num" id="numAtencao">0</div>
+          <div class="label">Atenção</div>
+        </div>
+        <div class="resumo-card normal" onclick="filtrarPor('normal')">
+          <div class="num" id="numNormal">0</div>
+          <div class="label">Normal</div>
+        </div>
+        <div class="resumo-card semprazo" onclick="filtrarPor('semprazo')">
+          <div class="num" id="numSemPrazo">0</div>
+          <div class="label">Sem Prazo</div>
+        </div>
+      </div>
+
+      <div>
+        <strong style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.6px;">POR TRIBUNAL</strong>
+        <div class="tribunal-tags" id="tribunalTags" style="margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTRICAS -->
+  <div class="card" id="secaoMetricas" style="display:none">
+    <div class="card-header">📊 MÉTRICAS DE NOMES E ATOS</div>
+    <div class="card-body">
+      <div class="metricas-grid">
+        <div class="metrica-section">
+          <h4>Tipo de Ato</h4>
+          <div id="metricasTipoAto"></div>
+        </div>
+        <div class="metrica-section">
+          <h4>Advogados nas Publicações (Top 10)</h4>
+          <div id="metricasAdvogados"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELA -->
+  <div class="card" id="secaoTabela" style="display:none">
+    <div class="card-header">📋 PUBLICAÇÕES</div>
+    <div class="card-body" style="padding-bottom:0">
+      <div class="filtros-bar">
+        <button class="filtro-btn ativo" onclick="filtrarPor('todos')" id="btnTodos">
+          <span class="dot dot-todos"></span> Todos
+        </button>
+        <button class="filtro-btn" onclick="filtrarPor('vencido')" id="btnVencidos">
+          <span class="dot dot-vencido"></span> Vencidos
+        </button>
+        <button class="filtro-btn" onclick="filtrarPor('urgente')" id="btnUrgentes">
+          <span class="dot dot-urgente"></span> Urgentes
+        </button>
+        <button class="filtro-btn" onclick="filtrarPor('atencao')" id="btnAtencao">
+          <span class="dot dot-atencao"></span> Atenção
+        </button>
+        <button class="filtro-btn" onclick="filtrarPor('normal')" id="btnNormal">
+          <span class="dot dot-normal"></span> Normal
+        </button>
+        <button class="filtro-btn" onclick="filtrarPor('semprazo')" id="btnSemPrazo">
+          <span class="dot dot-semprazo"></span> Sem Prazo
+        </button>
+        <select onchange="filtrarStatus(this.value)" style="margin-left:8px;">
+          <option value="">Todos os status</option>
+          <option value="PENDENTE">Pendente</option>
+          <option value="CONCLUIDO">Concluído</option>
+          <option value="AGENDADO">Agendado</option>
+        </select>
+        <input class="busca-inline" type="text" placeholder="🔍 Buscar processo, órgão, resumo..." oninput="buscarInline(this.value)">
+        <span class="count-label"><strong id="countAtual">0</strong> resultados</span>
+      </div>
+    </div>
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>URGÊNCIA</th>
+            <th>PROCESSO</th>
+            <th>TRIBUNAL</th>
+            <th>ÓRGÃO</th>
+            <th>TIPO DE ATO</th>
+            <th>PUBLICAÇÃO</th>
+            <th>VENCIMENTO</th>
+            <th>STATUS</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tabelaBody">
+          <tr><td colspan="9"><div class="empty"><div class="icon">⚖️</div>Clique em "Buscar" para carregar publicações</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:10px 18px; font-size:11px; color:#aaa; border-top:1px solid var(--borda);">
+      Dados consolidados de DJEN (CNJ), DJE/TJSP e TRT2 · Thiago Trevizani Rocchetti OAB/SP 216109
+    </div>
+  </div>
+
+</main>
+
+<!-- MODAL DETALHES -->
+<div class="modal-overlay" id="modal" onclick="fecharModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="modalTitulo">Detalhes da Publicação</h3>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="fecharModal()">Fechar</button>
+      <button class="btn btn-primary" onclick="agendarCalendario()">📅 Agendar no Calendário</button>
+      <button class="btn btn-success" onclick="marcarConcluido()">✓ Marcar Concluído</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DADOS E ESTADO
+// ============================================================
+
+let PUBLICACOES = [];
+let filtroAtual = 'todos';
+let filtroStatus = '';
+let buscaAtual = '';
+let publicacaoSelecionada = null;
+
+// Carregar dados salvos do localStorage
+function carregarDados() {
+  const saved = localStorage.getItem('monitorDJEN_publicacoes');
+  const savedSync = localStorage.getItem('monitorDJEN_ultimaSync');
+  if (saved) {
+    PUBLICACOES = JSON.parse(saved);
+    document.getElementById('ultimaSync').textContent = savedSync || '—';
+    renderizar();
+  }
+}
+
+// Salvar dados
+function salvarDados() {
+  localStorage.setItem('monitorDJEN_publicacoes', JSON.stringify(PUBLICACOES));
+  const agora = new Date().toLocaleString('pt-BR');
+  localStorage.setItem('monitorDJEN_ultimaSync', agora);
+  document.getElementById('ultimaSync').textContent = agora;
+}
+
+// ============================================================
+// DATAS
+// ============================================================
+
+function inicializarDatas() {
+  const hoje = new Date();
+  const seisAtras = new Date(hoje);
+  seisAtras.setDate(hoje.getDate() - 30);
+  document.getElementById('dataInicio').value = seisAtras.toISOString().split('T')[0];
+  document.getElementById('dataFim').value = hoje.toISOString().split('T')[0];
+}
+
+function calcularUrgencia(vencimento, hoje) {
+  if (!vencimento) return { tipo: 'semprazo', dias: null, texto: 'SEM PRAZO' };
+  const v = new Date(vencimento + 'T00:00:00');
+  const h = new Date(hoje + 'T00:00:00');
+  const diff = Math.round((v - h) / (1000 * 60 * 60 * 24));
+  if (diff < 0) return { tipo: 'vencido', dias: Math.abs(diff), texto: `VENCIDO ${Math.abs(diff)}d` };
+  if (diff <= 5) return { tipo: 'urgente', dias: diff, texto: `URGENTE ${diff}d` };
+  if (diff <= 7) return { tipo: 'atencao', dias: diff, texto: `ATENÇÃO ${diff}d` };
+  return { tipo: 'normal', dias: diff, texto: `NORMAL ${diff}d` };
+}
+
+function formatarData(iso) {
+  if (!iso) return '—';
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// ============================================================
+// BUSCA — constrói dados a partir dos dados importados
+// ============================================================
+
+function buscarPublicacoes() {
+  const btn = document.querySelector('.btn-primary');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px;margin:0"></div> Buscando...';
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Buscar';
+
+    if (PUBLICACOES.length === 0) {
+      mostrarVazio();
+      return;
+    }
+    renderizar();
+  }, 800);
+}
+
+function mostrarVazio() {
+  document.getElementById('secaoBriefing').style.display = 'none';
+  document.getElementById('secaoMetricas').style.display = 'none';
+  document.getElementById('secaoTabela').style.display = 'block';
+  document.getElementById('tabelaBody').innerHTML = `
+    <tr><td colspan="9">
+      <div class="empty">
+        <div class="icon">📭</div>
+        <div>Nenhuma publicação encontrada no período.</div>
+        <div style="margin-top:8px;font-size:11px;color:#bbb">
+          Importe dados via "Sincronizar" ou aguarde o agente diário.
+        </div>
+      </div>
+    </td></tr>`;
+}
+
+// ============================================================
+// RENDERIZAÇÃO
+// ============================================================
+
+function renderizar() {
+  const hoje = new Date().toISOString().split('T')[0];
+
+  // Enriquecer com urgência
+  const pubs = PUBLICACOES.map(p => ({
+    ...p,
+    urgencia: calcularUrgencia(p.vencimento, hoje)
+  }));
+
+  // Contagens
+  const counts = { vencido: 0, urgente: 0, atencao: 0, normal: 0, semprazo: 0 };
+  pubs.forEach(p => counts[p.urgencia.tipo]++);
+
+  // Mostrar seções
+  document.getElementById('secaoBriefing').style.display = 'block';
+  document.getElementById('secaoMetricas').style.display = 'block';
+  document.getElementById('secaoTabela').style.display = 'block';
+
+  // Briefing
+  document.getElementById('totalPubs').textContent = pubs.length;
+  document.getElementById('numVencidos').textContent = counts.vencido;
+  document.getElementById('numUrgentes').textContent = counts.urgente;
+  document.getElementById('numAtencao').textContent = counts.atencao;
+  document.getElementById('numNormal').textContent = counts.normal;
+  document.getElementById('numSemPrazo').textContent = counts.semprazo;
+
+  const urgentes = counts.vencido + counts.urgente;
+  const alertaEl = document.getElementById('alertaUrgente');
+  if (urgentes > 0) {
+    alertaEl.style.display = 'block';
+    document.getElementById('alertaTexto').textContent =
+      `${urgentes} ${urgentes === 1 ? 'requer' : 'requerem'} atenção imediata`;
+  } else {
+    alertaEl.style.display = 'none';
+  }
+
+  // Tribunais
+  const tribunais = {};
+  pubs.forEach(p => {
+    if (p.tribunal) tribunais[p.tribunal] = (tribunais[p.tribunal] || 0) + 1;
+  });
+  document.getElementById('tribunalTags').innerHTML = Object.entries(tribunais)
+    .map(([t, n]) => `<span class="tribunal-tag" onclick="filtrarTribunal('${t}')">${t} ${n}</span>`)
+    .join('');
+
+  // Métricas tipo ato
+  const tiposAto = {};
+  pubs.forEach(p => { tiposAto[p.tipoAto || 'Outro'] = (tiposAto[p.tipoAto || 'Outro'] || 0) + 1; });
+  const maxTipo = Math.max(...Object.values(tiposAto));
+  const cores = ['#7c3aed', '#0ea5e9', '#0284c7', '#94a3b8'];
+  document.getElementById('metricasTipoAto').innerHTML = Object.entries(tiposAto)
+    .sort((a, b) => b[1] - a[1])
+    .map(([tipo, n], i) => `
+      <div class="barra-row">
+        <div class="barra-label">${tipo}</div>
+        <div class="barra-track">
+          <div class="barra-fill" style="width:${(n/maxTipo*100).toFixed(0)}%;background:${cores[i]||'#94a3b8'}"></div>
+        </div>
+        <div class="barra-count">${n} (${Math.round(n/pubs.length*100)}%)</div>
+      </div>`).join('');
+
+  // Métricas advogados
+  const advs = {};
+  pubs.forEach(p => {
+    (p.advogados || []).forEach(a => { advs[a] = (advs[a] || 0) + 1; });
+  });
+  document.getElementById('metricasAdvogados').innerHTML = Object.entries(advs)
+    .sort((a, b) => b[1] - a[1]).slice(0, 10)
+    .map(([adv, n]) => `
+      <div class="barra-row">
+        <div class="barra-label" style="font-size:11px;">${adv.length > 22 ? adv.slice(0,22)+'…' : adv}</div>
+        <div class="barra-track">
+          <div class="barra-fill" style="width:${Math.min(n*8,100)}%;background:#94a3b8"></div>
+        </div>
+        <div class="barra-count">${n} (${Math.round(n/pubs.length*100)}%)</div>
+      </div>`).join('');
+
+  // Tabela
+  renderizarTabela(pubs);
+}
+
+function renderizarTabela(pubs) {
+  // Filtrar
+  let filtrados = pubs.filter(p => {
+    if (filtroAtual !== 'todos' && p.urgencia.tipo !== filtroAtual) return false;
+    if (filtroStatus && p.status !== filtroStatus) return false;
+    if (buscaAtual) {
+      const q = buscaAtual.toLowerCase();
+      if (!`${p.numero} ${p.orgao} ${p.resumo} ${p.tipoAto}`.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('countAtual').textContent = filtrados.length;
+
+  if (filtrados.length === 0) {
+    document.getElementById('tabelaBody').innerHTML = `
+      <tr><td colspan="9"><div class="empty"><div class="icon">🔎</div>Nenhum resultado para este filtro.</div></td></tr>`;
+    return;
+  }
+
+  document.getElementById('tabelaBody').innerHTML = filtrados.map((p, idx) => {
+    const u = p.urgencia;
+    const badgeClass = `badge-${u.tipo}`;
+    const vencClass = u.tipo === 'semprazo' ? '' : `venc-data ${u.tipo}`;
+
+    return `<tr onclick="abrirDetalhe(${PUBLICACOES.indexOf(p)})">
+      <td>
+        <span class="badge ${badgeClass}">
+          <span class="dot" style="background:currentColor;opacity:0.7"></span>
+          ${u.texto}
+        </span>
+      </td>
+      <td>
+        <div class="processo-num">${p.numero || '—'}</div>
+        <div class="processo-desc">${(p.resumo || '').slice(0, 80)}${(p.resumo||'').length > 80 ? '...' : ''}</div>
+      </td>
+      <td><span class="trib-badge">${p.tribunal || '—'}</span></td>
+      <td style="font-size:12px; max-width:180px; color:#555">${(p.orgao || '—').slice(0,40)}${(p.orgao||'').length>40?'...':''}</td>
+      <td style="font-size:12px;">${p.tipoAto || '—'}</td>
+      <td style="font-size:12px;">${formatarData(p.dataPublicacao)}</td>
+      <td><span class="${vencClass}">${formatarData(p.vencimento)}</span></td>
+      <td>
+        <span class="status-badge">
+          <span class="circle"></span>
+          ${p.status || 'PENDENTE'}
+        </span>
+      </td>
+      <td class="seta">›</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// FILTROS
+// ============================================================
+
+function filtrarPor(tipo) {
+  filtroAtual = tipo;
+  ['todos','vencidos','urgentes','atencao','normal','semprazo'].forEach(b => {
+    const el = document.getElementById('btn' + b.charAt(0).toUpperCase() + b.slice(1));
+    if (el) el.classList.remove('ativo');
+  });
+  const map = { todos:'Todos', vencido:'Vencidos', urgente:'Urgentes', atencao:'Atencao', normal:'Normal', semprazo:'SemPrazo' };
+  const el = document.getElementById('btn' + (map[tipo] || 'Todos'));
+  if (el) el.classList.add('ativo');
+  const hoje = new Date().toISOString().split('T')[0];
+  renderizarTabela(PUBLICACOES.map(p => ({ ...p, urgencia: calcularUrgencia(p.vencimento, hoje) })));
+}
+
+function filtrarStatus(val) { filtroStatus = val; filtrarPor(filtroAtual); }
+function buscarInline(val) { buscaAtual = val; filtrarPor(filtroAtual); }
+function filtrarTribunal(t) {
+  filtroAtual = 'todos';
+  buscaAtual = t;
+  document.querySelector('.busca-inline').value = t;
+  filtrarPor('todos');
+}
+
+// ============================================================
+// MODAL DETALHES
+// ============================================================
+
+function abrirDetalhe(idx) {
+  publicacaoSelecionada = idx;
+  const p = PUBLICACOES[idx];
+  const hoje = new Date().toISOString().split('T')[0];
+  const u = calcularUrgencia(p.vencimento, hoje);
+
+  document.getElementById('modalTitulo').textContent = `Processo ${p.numero || 'S/N'}`;
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Urgência</div>
+      <div class="detalhe-valor"><span class="badge badge-${u.tipo}">${u.texto}</span></div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Nº Processo</div>
+      <div class="detalhe-valor" style="font-family:monospace;font-weight:700;">${p.numero || '—'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Tribunal</div>
+      <div class="detalhe-valor">${p.tribunal || '—'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Órgão</div>
+      <div class="detalhe-valor">${p.orgao || '—'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Tipo de Ato</div>
+      <div class="detalhe-valor">${p.tipoAto || '—'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Publicação</div>
+      <div class="detalhe-valor">${formatarData(p.dataPublicacao)}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Vencimento</div>
+      <div class="detalhe-valor"><strong class="${u.tipo !== 'semprazo' ? 'venc-data ' + u.tipo : ''}">${formatarData(p.vencimento)}</strong></div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Prazo Legal</div>
+      <div class="detalhe-valor">${p.prazoLegal || '—'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Status</div>
+      <div class="detalhe-valor">${p.status || 'PENDENTE'}</div>
+    </div>
+    <div class="detalhe-row">
+      <div class="detalhe-chave">Fonte</div>
+      <div class="detalhe-valor">${p.fonte || '—'}</div>
+    </div>
+    <hr class="detalhe-divider">
+    <div class="detalhe-chave" style="margin-bottom:8px;">Texto da Publicação</div>
+    <div class="texto-publicacao">${p.textoCompleto || p.resumo || 'Texto não disponível.'}</div>
+  `;
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function fecharModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+
+function marcarConcluido() {
+  if (publicacaoSelecionada !== null) {
+    PUBLICACOES[publicacaoSelecionada].status = 'CONCLUIDO';
+    salvarDados();
+    fecharModal();
+    renderizar();
+  }
+}
+
+function agendarCalendario() {
+  if (publicacaoSelecionada === null) return;
+  const p = PUBLICACOES[publicacaoSelecionada];
+  alert(`✅ Para agendar no Google Calendar, use o agente diário automático.\n\nProcesso: ${p.numero}\nVencimento: ${formatarData(p.vencimento)}\nLembrete: 1 dia antes às 10h`);
+}
+
+// ============================================================
+// EXPORTAR EXCEL
+// ============================================================
+
+function exportarExcel() {
+  if (PUBLICACOES.length === 0) { alert('Nenhuma publicação para exportar.'); return; }
+  const hoje = new Date().toISOString().split('T')[0];
+  const pubs = PUBLICACOES.map(p => ({ ...p, urgencia: calcularUrgencia(p.vencimento, hoje) }));
+
+  const csv = [
+    ['Urgência','Dias','Nº Processo','Tribunal','Órgão','Tipo de Ato','Data Publicação','Vencimento','Prazo Legal','Status','Fonte','Resumo'],
+    ...pubs.map(p => [
+      p.urgencia.texto,
+      p.urgencia.dias ?? '',
+      p.numero, p.tribunal, p.orgao, p.tipoAto,
+      formatarData(p.dataPublicacao), formatarData(p.vencimento),
+      p.prazoLegal, p.status || 'PENDENTE', p.fonte,
+      `"${(p.resumo || '').replace(/"/g, '""')}"`
+    ])
+  ].map(r => r.join(';')).join('\n');
+
+  const BOM = '﻿';
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `publicacoes_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ============================================================
+// SINCRONIZAR — aceita JSON colado
+// ============================================================
+
+function sincronizar() {
+  const json = prompt(
+    '📋 Cole aqui o JSON de publicações gerado pelo agente diário:\n\n' +
+    '(Formato: array de objetos com campos: numero, tribunal, orgao, tipoAto, dataPublicacao, vencimento, prazoLegal, resumo, textoCompleto, advogados, fonte, status)\n\n' +
+    'Deixe em branco para usar dados de demonstração:'
+  );
+
+  if (json === null) return; // cancelado
+
+  if (!json.trim()) {
+    carregarDadosDemo();
+    return;
+  }
+
+  try {
+    const dados = JSON.parse(json);
+    if (!Array.isArray(dados)) throw new Error('Deve ser um array');
+    PUBLICACOES = dados;
+    salvarDados();
+    renderizar();
+    alert(`✅ ${dados.length} publicações importadas com sucesso!`);
+  } catch (e) {
+    alert('❌ JSON inválido. Verifique o formato e tente novamente.\n\n' + e.message);
+  }
+}
+
+// ============================================================
+// DADOS DE DEMONSTRAÇÃO
+// ============================================================
+
+function carregarDadosDemo() {
+  const hoje = new Date();
+  const d = (offset) => {
+    const dt = new Date(hoje);
+    dt.setDate(hoje.getDate() + offset);
+    return dt.toISOString().split('T')[0];
+  };
+
+  PUBLICACOES = [
+    {
+      numero: '4045159-18.2025.8.26.0002',
+      tribunal: 'TJSP',
+      orgao: 'UPJ da 9ª a 14ª Varas Cíveis - R...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-2),
+      vencimento: d(3),
+      prazoLegal: 'Prazo de 5 dias úteis (CPC art. 1.023).',
+      resumo: 'Sentença. Prazo de 5 dias úteis (CPC art. 1.023).',
+      textoCompleto: 'Sentença proferida. Intime-se. Prazo de 5 dias úteis para interposição de embargos de declaração (CPC art. 1.023). Thiago Trevizani Rocchetti - OAB/SP 216109.',
+      advogados: ['THIAGO TREVIZANI ROC...'],
+      fonte: 'DJEN/Gmail-Astrea',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '1002955-67.2022.8.26.0114',
+      tribunal: 'TJSP',
+      orgao: 'Foro de Campinas - 6ª Vara Cível...',
+      tipoAto: 'Despacho',
+      dataPublicacao: d(-1),
+      vencimento: d(4),
+      prazoLegal: 'Prazo de 5 dias úteis (CPC art. 218).',
+      resumo: 'Despacho. Prazo de 5 dias úteis (CPC art. 218).',
+      textoCompleto: 'Despacho. Intime-se o advogado Thiago Trevizani Rocchetti para se manifestar no prazo de 5 dias úteis.',
+      advogados: ['THIAGO TREVIZANI ROC...'],
+      fonte: 'DJE/Gmail-OAB',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0031400-30.2004.5.02.0028',
+      tribunal: 'TRT2',
+      orgao: '28ª Vara do Trabalho de São P...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-3),
+      vencimento: d(5),
+      prazoLegal: 'Prazo de 8 dias úteis (texto expresso).',
+      resumo: 'Sentença. Prazo de 8 dias úteis (texto expresso).',
+      textoCompleto: 'Sentença proferida pela 28ª Vara do Trabalho. Recurso Ordinário no prazo de 8 dias úteis.',
+      advogados: ['THIAGO TREVIZANI ROC...', 'GIOVANNA DE FARIA M...'],
+      fonte: 'DJEN/Gmail-Juris',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '1000848-25.2021.8.26.0554',
+      tribunal: 'TJSP',
+      orgao: 'Foro de Santo André - 2ª Vara ...',
+      tipoAto: 'Despacho',
+      dataPublicacao: d(0),
+      vencimento: d(15),
+      prazoLegal: 'Prazo de 15 dias úteis (texto expresso).',
+      resumo: 'Despacho. Prazo de 15 dias úteis (texto expresso).',
+      textoCompleto: 'Despacho. Intime-se. Prazo de 15 dias úteis para apresentação de réplica.',
+      advogados: ['THIAGO TREVIZANI ROC...'],
+      fonte: 'DJE/Gmail-Astrea',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0001712-45.2025.8.26.0003',
+      tribunal: 'TJSP',
+      orgao: 'Foro Regional III - Jabaquara ...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-3),
+      vencimento: d(12),
+      prazoLegal: 'Prazo de 15 dias úteis (CPC art. 523).',
+      resumo: 'Sentença. Prazo de 15 dias úteis (CPC art. 523).',
+      textoCompleto: 'Sentença de mérito proferida. Prazo para cumprimento voluntário: 15 dias úteis (CPC art. 523).',
+      advogados: ['THIAGO TREVIZANI ROC...', 'JEFFERSON URSIOLI LOP...'],
+      fonte: 'DJEN/Gmail-Astrea',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0017270-63.2025.8.26.0001',
+      tribunal: 'TJSP',
+      orgao: 'Foro Regional I - Santana - 3ª ...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-6),
+      vencimento: d(11),
+      prazoLegal: 'Prazo de 15 dias úteis (CPC art. 523).',
+      resumo: 'Sentença. Prazo de 15 dias úteis (CPC art. 523).',
+      textoCompleto: 'Sentença. Homologo por sentença o acordo celebrado entre as partes. Custas na forma da lei. Prazo de 15 dias.',
+      advogados: ['THIAGO TREVIZANI ROC...'],
+      fonte: 'DJE/Gmail-Astrea',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0014811-59.1999.8.26.0564',
+      tribunal: 'TJSP',
+      orgao: 'Foro de São Bernardo do Cam...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-6),
+      vencimento: d(11),
+      prazoLegal: 'Prazo de 15 dias úteis (CPC art. 523).',
+      resumo: 'Sentença. Prazo de 15 dias úteis (CPC art. 523).',
+      textoCompleto: 'Sentença de extinção. Processo extinto nos termos do art. 485, VI do CPC.',
+      advogados: ['THIAGO TREVIZANI ROC...', 'ELIZABETH PARANHOS'],
+      fonte: 'DJE/Gmail-Astrea',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '4014471-36.2026.8.26.0100',
+      tribunal: 'TJSP',
+      orgao: '3ª Vara de Falências e Recupe...',
+      tipoAto: 'Decisão Interlocutória',
+      dataPublicacao: d(1),
+      vencimento: d(16),
+      prazoLegal: 'Prazo de 15 dias úteis (CPC art. ...',
+      resumo: 'Decisão Interlocutória. Prazo de 15 dias úteis.',
+      textoCompleto: 'Decisão Interlocutória. Defiro o pedido de tutela de urgência. Intime-se. Prazo para cumprimento: 15 dias.',
+      advogados: ['THIAGO TREVIZANI ROC...', 'MARCOS VINICIUS ROS...'],
+      fonte: 'DJEN/Gmail-Juris',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0010080-12.2026.8.26.0002',
+      tribunal: 'TJSP',
+      orgao: 'UPJ da 1ª a 4ª e 16ª Varas Cíve...',
+      tipoAto: 'Despacho',
+      dataPublicacao: d(0),
+      vencimento: null,
+      prazoLegal: null,
+      resumo: 'Despacho sem prazo identificado.',
+      textoCompleto: 'Despacho. Certifique-se nos autos o trânsito em julgado. Arquivem-se.',
+      advogados: ['THIAGO TREVIZANI ROC...'],
+      fonte: 'DJE/Gmail-OAB',
+      status: 'PENDENTE'
+    },
+    {
+      numero: '0031400-30.2004.5.02.0028',
+      tribunal: 'TRT2',
+      orgao: '28ª Vara do Trabalho de São P...',
+      tipoAto: 'Sentença',
+      dataPublicacao: d(-1),
+      vencimento: null,
+      prazoLegal: null,
+      resumo: 'Sentença. PODER JUDICIÁRIO JUSTIÇA DO TRAB...',
+      textoCompleto: 'PODER JUDICIÁRIO JUSTIÇA DO TRABALHO. Sentença homologatória de acordo.',
+      advogados: ['THIAGO TREVIZANI ROC...', 'ANTONIO EDUARDO FE...'],
+      fonte: 'DJEN/Gmail-Astrea',
+      status: 'PENDENTE'
+    }
+  ];
+
+  salvarDados();
+  renderizar();
+}
+
+// ============================================================
+// CONFIG
+// ============================================================
+
+function abrirConfig() {
+  alert(`⚙️ CONFIGURAÇÕES DO MONITOR DJEN\n\nAdvogado: Thiago Trevizani Rocchetti\nOAB: 216109/SP\nE-mail: trevo1978@gmail.com\n\nFontes monitoradas:\n• Gmail — Astrea\n• Gmail — OAB/SP\n• Gmail — Juris\n\nAgente diário: rodando via Claude Scheduled Tasks\nHorário do lembrete: 10h00\nAntecedência: 1 dia útil\n\nPara alterar as configurações, contate o Claude Code.`);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+
+inicializarDatas();
+carregarDados();
+if (PUBLICACOES.length === 0) carregarDadosDemo();
+
+// Atalho teclado: Enter no formulário
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.closest('.card-body')) buscarPublicacoes();
+  if (e.key === 'Escape') fecharModal();
+});
+</script>
+</body>
+</html>
