@@ -1025,16 +1025,8 @@ function urlTribunal(numero, tribunal) {
   return 'https://esaj.tjsp.jus.br/cpopg/show.do?processo.numero=' + encodeURIComponent(numero) + '&processo.foro=' + foro;
 }
 
-function urlDJE(tribunal, dataPublicacao) {
+function urlDJE(tribunal) {
   if (tribunal === 'TRT2') return 'https://dejt.jt.jus.br/dejt/f/n/diariodj';
-  if (dataPublicacao) {
-    // Converter YYYY-MM-DD para DD/MM/YYYY
-    const partes = dataPublicacao.split('-');
-    if (partes.length === 3) {
-      const dtFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
-      return 'https://www.dje.tjsp.jus.br/cdje/navegacaoDateForm.do?dtDiario=' + encodeURIComponent(dtFormatada);
-    }
-  }
   return 'https://www.dje.tjsp.jus.br/cdje/consultaSimples.do';
 }
 
@@ -1048,7 +1040,7 @@ function abrirDetalhe(idx) {
   document.getElementById('modalTitulo').textContent = 'Processo ' + (p.numero || 'S/N');
 
   const linkTribunal = urlTribunal(p.numero, p.tribunal);
-  const linkDJE = urlDJE(p.tribunal, p.dataPublicacao);
+  const linkDJE = urlDJE(p.tribunal);
   const textoExibir = p.textoCompleto || p.resumo || 'Texto não disponível.';
   const isPublicacao = p.tipoAto && p.tipoAto !== 'Andamento';
 
