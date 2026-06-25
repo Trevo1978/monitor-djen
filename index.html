@@ -1007,22 +1007,49 @@ function filtrarTribunal(t) {
 // MODAL DETALHES
 // ============================================================
 
+function urlTribunal(numero, tribunal) {
+  if (!numero) return null;
+  const partes = numero.split('.');
+  const foro = parseInt(partes[partes.length - 1] || '0', 10);
+  if (tribunal === 'TRT2') return 'https://pje.trt2.jus.br/consultaprocessual/detalhe-processo/' + numero;
+  if (tribunal === 'STJ')  return 'https://processo.stj.jus.br/processo/pesquisa/?tipoPesquisa=tipoPesquisaNumeroRegistro&termo=' + encodeURIComponent(numero);
+  if (tribunal === 'STF')  return 'https://portal.stf.jus.br/processos/detalhe.asp?incidente=' + encodeURIComponent(numero);
+  if (tribunal === 'TRF3') return 'https://processos.trf3.jus.br/processos/acompanhamento/consulta.php?txtPasta=' + encodeURIComponent(numero);
+  return 'https://esaj.tjsp.jus.br/cpopg/show.do?processo.numero=' + encodeURIComponent(numero) + '&processo.foro=' + foro;
+}
+
+function urlDJE(tribunal) {
+  if (tribunal === 'TRT2') return 'https://dejt.jt.jus.br/dejt/f/n/diariodj';
+  return 'https://www.dje.tjsp.jus.br/cdje/consultaSimples.do';
+}
+
 function abrirDetalhe(idx) {
   publicacaoSelecionada = idx;
   const p = PUBLICACOES[idx];
+  if (!p) return;
   const hoje = new Date().toISOString().split('T')[0];
   const u = calcularUrgencia(p.vencimento, hoje);
 
-  document.getElementById('modalTitulo').textContent = `Processo ${p.numero || 'S/N'}`;
+  document.getElementById('modalTitulo').textContent = 'Processo ' + (p.numero || 'S/N');
+
+  const linkTribunal = urlTribunal(p.numero, p.tribunal);
+  const linkDJE = urlDJE(p.tribunal);
+  const textoExibir = p.textoCompleto || p.resumo || 'Texto não disponível.';
+  const isPublicacao = p.tipoAto && p.tipoAto !== 'Andamento';
 
   document.getElementById('modalBody').innerHTML = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      ${linkTribunal ? `<a href="${linkTribunal}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#1e3a5f;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;">🏛️ Abrir no ${p.tribunal || 'Tribunal'}</a>` : ''}
+      ${isPublicacao ? `<a href="${linkDJE}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#2e7d32;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;">📄 Ver DJE/DJEN</a>` : ''}
+    </div>
+
     <div class="detalhe-row">
       <div class="detalhe-chave">Urgência</div>
-      <div class="detalhe-valor"><span class="badge badge-${u.tipo}">${u.texto}</span></div>
+      <div class="detalhe-valor"><span class="badge badge-${u.tipo}">${u.texto}</span>${p.verificado ? ' <span style="color:#2e7d32;font-size:11px;font-weight:600;">✓ DUPLO GRAU</span>' : ''}</div>
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Nº Processo</div>
-      <div class="detalhe-valor" style="font-family:monospace;font-weight:700;">${p.numero || '—'}</div>
+      <div class="detalhe-valor" style="font-family:monospace;font-weight:700;font-size:13px;">${p.numero || '—'}</div>
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Tribunal</div>
@@ -1034,7 +1061,7 @@ function abrirDetalhe(idx) {
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Tipo de Ato</div>
-      <div class="detalhe-valor">${p.tipoAto || '—'}</div>
+      <div class="detalhe-valor"><strong>${p.tipoAto || '—'}</strong></div>
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Publicação</div>
@@ -1042,23 +1069,22 @@ function abrirDetalhe(idx) {
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Vencimento</div>
-      <div class="detalhe-valor"><strong class="${u.tipo !== 'semprazo' ? 'venc-data ' + u.tipo : ''}">${formatarData(p.vencimento)}</strong></div>
+      <div class="detalhe-valor"><strong class="${u.tipo !== 'semprazo' ? 'venc-data ' + u.tipo : ''}" style="font-size:15px;">${formatarData(p.vencimento)}</strong>${p.diasUteis ? ` <span style="color:#888;font-size:11px;">(${p.diasUteis} dias úteis)</span>` : ''}</div>
     </div>
     <div class="detalhe-row">
       <div class="detalhe-chave">Prazo Legal</div>
       <div class="detalhe-valor">${p.prazoLegal || '—'}</div>
     </div>
     <div class="detalhe-row">
-      <div class="detalhe-chave">Status</div>
-      <div class="detalhe-valor">${p.status || 'PENDENTE'}</div>
-    </div>
-    <div class="detalhe-row">
       <div class="detalhe-chave">Fonte</div>
       <div class="detalhe-valor">${p.fonte || '—'}</div>
     </div>
+
     <hr class="detalhe-divider">
-    <div class="detalhe-chave" style="margin-bottom:8px;">Texto da Publicação</div>
-    <div class="texto-publicacao">${p.textoCompleto || p.resumo || 'Texto não disponível.'}</div>
+    <div class="detalhe-chave" style="margin-bottom:8px;">
+      ${isPublicacao ? '📋 Texto da Publicação' : '📌 Andamento'}
+    </div>
+    <div class="texto-publicacao" style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:14px;font-size:12px;line-height:1.7;color:#333;max-height:280px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;">${textoExibir}</div>
   `;
 
   document.getElementById('modal').classList.add('open');
