@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1e3a5f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Monitor DJEN">
 <title>Monitor DJEN/DJE — Thiago Trevizani Rocchetti</title>
 <style>
   :root {
@@ -733,8 +738,24 @@ let filtroStatus = '';
 let buscaAtual = '';
 let publicacaoSelecionada = null;
 
-// Carregar dados salvos do localStorage
-function carregarDados() {
+// Carregar dados: tenta data.json do GitHub primeiro, fallback localStorage
+async function carregarDados() {
+  try {
+    const resp = await fetch('./data.json?_=' + Date.now());
+    if (resp.ok) {
+      const dados = await resp.json();
+      if (Array.isArray(dados) && dados.length > 0) {
+        PUBLICACOES = dados;
+        const agora = new Date().toLocaleString('pt-BR');
+        localStorage.setItem('monitorDJEN_publicacoes', JSON.stringify(dados));
+        localStorage.setItem('monitorDJEN_ultimaSync', agora);
+        document.getElementById('ultimaSync').textContent = agora;
+        renderizar();
+        return;
+      }
+    }
+  } catch(e) {}
+  // fallback localStorage
   const saved = localStorage.getItem('monitorDJEN_publicacoes');
   const savedSync = localStorage.getItem('monitorDJEN_ultimaSync');
   if (saved) {
@@ -1296,14 +1317,18 @@ function abrirConfig() {
 // ============================================================
 
 inicializarDatas();
-carregarDados();
-if (PUBLICACOES.length === 0) carregarDadosDemo();
+carregarDados().then(() => { if (PUBLICACOES.length === 0) carregarDadosDemo(); });
 
 // Atalho teclado: Enter no formulário
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.closest('.card-body')) buscarPublicacoes();
   if (e.key === 'Escape') fecharModal();
 });
+
+// Registrar Service Worker (PWA)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
 </script>
 </body>
 </html>
