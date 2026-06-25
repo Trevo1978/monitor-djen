@@ -950,6 +950,12 @@ function renderizarTabela(pubs) {
     const vencClass = u.tipo === 'semprazo' ? '' : `venc-data ${u.tipo}`;
     const idxOriginal = PUBLICACOES.findIndex(o => o.numero === p.numero);
 
+    const parteAtiva   = (p.polo_ativo   || '').trim();
+    const partePassiva = (p.polo_passivo || '').trim();
+    const partesStr = parteAtiva
+      ? parteAtiva + (partePassiva ? ' × ' + partePassiva : '')
+      : '';
+
     return `<tr onclick="abrirDetalhe(${idxOriginal})" style="cursor:pointer">
       <td>
         <span class="badge ${badgeClass}">
@@ -958,6 +964,7 @@ function renderizarTabela(pubs) {
         </span>
       </td>
       <td>
+        ${partesStr ? `<div style="font-size:11px;font-weight:600;color:#1e3a5f;margin-bottom:2px;letter-spacing:0.01em;">${partesStr.length > 70 ? partesStr.slice(0,70)+'…' : partesStr}</div>` : ''}
         <div class="processo-num">${p.numero || '—'}</div>
         <div class="processo-desc">${(p.resumo || '').slice(0, 80)}${(p.resumo||'').length > 80 ? '...' : ''}</div>
       </td>
@@ -1081,10 +1088,14 @@ function abrirDetalhe(idx) {
     </div>
 
     <hr class="detalhe-divider">
-    <div class="detalhe-chave" style="margin-bottom:8px;">
-      ${isPublicacao ? '📋 Texto da Publicação' : '📌 Andamento'}
+    <div class="detalhe-chave" style="margin-bottom:6px;">
+      ${isPublicacao ? '📋 Texto da Publicação (DJE/DJEN)' : '📌 Andamento'}
     </div>
-    <div class="texto-publicacao" style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:14px;font-size:12px;line-height:1.7;color:#333;max-height:280px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;">${textoExibir}</div>
+    ${p.fonte && !p.fonte.includes('TJSP') && !p.fonte.includes('TRT') ? `
+    <div style="background:#fff8e1;border:1px solid #ffd54f;border-radius:6px;padding:8px 12px;font-size:11px;color:#795548;margin-bottom:10px;">
+      ⚠️ Texto obtido via e-mail (${p.fonte}) — não é a certidão oficial do DJE/DJEN. Para o texto original, clique em "Ver DJE/DJEN" acima.
+    </div>` : ''}
+    <div class="texto-publicacao" style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:14px;font-size:12px;line-height:1.7;color:#333;max-height:400px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;">${textoExibir || 'Texto não disponível. Clique em "Ver DJE/DJEN" para consultar a publicação original.'}</div>
   `;
 
   document.getElementById('modal').classList.add('open');
