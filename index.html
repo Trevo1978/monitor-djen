@@ -944,12 +944,13 @@ function renderizarTabela(pubs) {
     return;
   }
 
-  document.getElementById('tabelaBody').innerHTML = filtrados.map((p, idx) => {
+  document.getElementById('tabelaBody').innerHTML = filtrados.map((p) => {
     const u = p.urgencia;
     const badgeClass = `badge-${u.tipo}`;
     const vencClass = u.tipo === 'semprazo' ? '' : `venc-data ${u.tipo}`;
+    const idxOriginal = PUBLICACOES.findIndex(o => o.numero === p.numero);
 
-    return `<tr onclick="abrirDetalhe(${PUBLICACOES.indexOf(p)})">
+    return `<tr onclick="abrirDetalhe(${idxOriginal})" style="cursor:pointer">
       <td>
         <span class="badge ${badgeClass}">
           <span class="dot" style="background:currentColor;opacity:0.7"></span>
