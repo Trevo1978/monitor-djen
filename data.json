@@ -2,13 +2,13 @@
   {
     "numero": "0010080-12.2026.8.26.0002",
     "tribunal": "TJSP",
-    "tipoAto": "Senten\u251c\u00baa",
-    "dataPublicacao": null,
+    "tipoAto": "Senten\u00e7a",
+    "dataPublicacao": "2026-06-25",
     "diasUteis": 15,
-    "prazoLegal": "Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523)",
-    "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523).",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "prazoLegal": "Cumprimento de Senten\u00e7a \u2014 15 dias \u00fateis (CPC art. 523)",
+    "vencimento": "2026-07-16",
+    "resumo": "Senten\u00e7a. Cumprimento de Senten\u00e7a \u2014 15 dias \u00fateis (CPC art. 523).",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -21,11 +21,11 @@
     "tribunal": "TJSP",
     "tipoAto": "Despacho",
     "dataPublicacao": null,
-    "diasUteis": null,
-    "prazoLegal": null,
+    "diasUteis": 15,
+    "prazoLegal": "Contrarraz\u00f5es \u2014 15 dias \u00fateis (CPC art. 1.010 \u00a72\u00ba)",
     "vencimento": null,
-    "resumo": "Despacho.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Despacho. Contrarraz\u00f5es \u2014 15 dias \u00fateis (CPC art. 1.010 \u00a72\u00ba).",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -36,13 +36,13 @@
   {
     "numero": "1002955-67.2022.8.26.0114",
     "tribunal": "TJSP",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
-    "dataPublicacao": null,
+    "tipoAto": "Intima\u00e7\u00e3o",
+    "dataPublicacao": "2026-06-24",
     "diasUteis": 8,
-    "prazoLegal": "Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895)",
+    "prazoLegal": "Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895)",
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
-    "orgao": "Foro de Campinas - 6\u00aa Vara Civel Comarca: TJSPDJN Divulgado em 2",
+    "resumo": "Intima\u00e7\u00e3o.",
+    "orgao": "Foro de Campinas - 6\u00aa Vara Civel Comarca: TJSPDJN Divulgado em *",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -53,13 +53,13 @@
   {
     "numero": "1000802-29.2022.5.02.0066",
     "tribunal": "TRT2",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
+    "tipoAto": "Intima\u00e7\u00e3o",
     "dataPublicacao": null,
     "diasUteis": 8,
-    "prazoLegal": "Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895)",
+    "prazoLegal": "Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895)",
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao. Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895).",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Intima\u00e7\u00e3o. Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895).",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -70,13 +70,13 @@
   {
     "numero": "1024872-93.2022.8.26.0001",
     "tribunal": "TJSP",
-    "tipoAto": "Senten\u251c\u00baa",
+    "tipoAto": "Senten\u00e7a",
     "dataPublicacao": null,
     "diasUteis": null,
     "prazoLegal": null,
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Senten\u00e7a.",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -86,13 +86,13 @@
   },
   {
     "numero": "0007321-78.2011.8.26.0268",
-    "tribunal": "STJ",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
-    "dataPublicacao": null,
+    "tribunal": "TJSP",
+    "tipoAto": "Intima\u00e7\u00e3o",
+    "dataPublicacao": "2026-06-23",
     "diasUteis": 15,
-    "prazoLegal": "Apela\u251c\u00ba\u251c\u00fao \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 1.003 \u252c\u00ba5\u252c\u2551)",
+    "prazoLegal": "Apela\u00e7\u00e3o \u2014 15 dias \u00fateis (CPC art. 1.003 \u00a75\u00ba)",
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
+    "resumo": "Intima\u00e7\u00e3o.",
     "orgao": "Foro de Itapecerica da Serra - 4\u00aa Vara Comarca: TJSPDJN Divulgad",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
@@ -104,13 +104,13 @@
   {
     "numero": "4045159-18.2025.8.26.0002",
     "tribunal": "TJSP",
-    "tipoAto": "Senten\u251c\u00baa",
-    "dataPublicacao": null,
+    "tipoAto": "Senten\u00e7a",
+    "dataPublicacao": "2026-06-23",
     "diasUteis": 15,
-    "prazoLegal": "Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523)",
-    "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523).",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "prazoLegal": "Apela\u00e7\u00e3o \u2014 15 dias \u00fateis (CPC art. 1.003 \u00a75\u00ba)",
+    "vencimento": "2026-07-14",
+    "resumo": "Senten\u00e7a. Apela\u00e7\u00e3o \u2014 15 dias \u00fateis (CPC art. 1.003 \u00a75\u00ba).",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -121,13 +121,13 @@
   {
     "numero": "1032080-57.2024.8.26.0002",
     "tribunal": "TJSP",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
+    "tipoAto": "Intima\u00e7\u00e3o",
     "dataPublicacao": null,
     "diasUteis": null,
     "prazoLegal": null,
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Intima\u00e7\u00e3o.",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -138,13 +138,13 @@
   {
     "numero": "1010006-79.2024.8.26.0011",
     "tribunal": "TJSP",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
+    "tipoAto": "Intima\u00e7\u00e3o",
     "dataPublicacao": null,
     "diasUteis": null,
     "prazoLegal": null,
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Intima\u00e7\u00e3o.",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -155,13 +155,13 @@
   {
     "numero": "1112668-19.2022.8.26.0100",
     "tribunal": "TJSP",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
+    "tipoAto": "Intima\u00e7\u00e3o",
     "dataPublicacao": null,
     "diasUteis": null,
     "prazoLegal": null,
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Intima\u00e7\u00e3o.",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -172,13 +172,13 @@
   {
     "numero": "0074028-66.2019.8.26.0100",
     "tribunal": "TJSP",
-    "tipoAto": "Intima\u251c\u00ba\u251c\u00fao",
+    "tipoAto": "Intima\u00e7\u00e3o",
     "dataPublicacao": null,
     "diasUteis": null,
     "prazoLegal": null,
     "vencimento": null,
-    "resumo": "Intima\u251c\u00ba\u251c\u00fao.",
-    "orgao": "\u00d4\u00c7\u00f6",
+    "resumo": "Intima\u00e7\u00e3o.",
+    "orgao": "\u2014",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -188,13 +188,13 @@
   },
   {
     "numero": "0001712-45.2025.8.26.0003",
-    "tribunal": "STJ",
-    "tipoAto": "Senten\u251c\u00baa",
-    "dataPublicacao": null,
+    "tribunal": "TJSP",
+    "tipoAto": "Senten\u00e7a",
+    "dataPublicacao": "2026-06-20",
     "diasUteis": 8,
-    "prazoLegal": "Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895)",
+    "prazoLegal": "Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895)",
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523).",
+    "resumo": "Senten\u00e7a. Cumprimento de Senten\u00e7a \u2014 15 dias \u00fateis (CPC art. 523).",
     "orgao": "Foro Regional III - Jabaquara - 1\u00aa Vara do Juizado Especial Cive",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
@@ -205,13 +205,13 @@
   },
   {
     "numero": "0007395-97.2024.8.26.0003",
-    "tribunal": "STJ",
-    "tipoAto": "Senten\u251c\u00baa",
-    "dataPublicacao": null,
+    "tribunal": "TJSP",
+    "tipoAto": "Senten\u00e7a",
+    "dataPublicacao": "2026-06-20",
     "diasUteis": 8,
-    "prazoLegal": "Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895)",
+    "prazoLegal": "Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895)",
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Cumprimento de Senten\u251c\u00baa \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 523).",
+    "resumo": "Senten\u00e7a. Cumprimento de Senten\u00e7a \u2014 15 dias \u00fateis (CPC art. 523).",
     "orgao": "Foro Regional III - Jabaquara - 1\u00aa Vara do Juizado Especial Cive",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
@@ -223,13 +223,13 @@
   {
     "numero": "1000848-25.2021.8.26.0554",
     "tribunal": "TJSP",
-    "tipoAto": "Senten\u251c\u00baa",
+    "tipoAto": "Senten\u00e7a",
     "dataPublicacao": null,
     "diasUteis": 15,
-    "prazoLegal": "Contrarraz\u251c\u00c1es \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 1.010 \u252c\u00ba2\u252c\u2551)",
+    "prazoLegal": "Contrarraz\u00f5es \u2014 15 dias \u00fateis (CPC art. 1.010 \u00a72\u00ba)",
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Contrarraz\u251c\u00c1es \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 1.010 \u252c\u00ba2\u252c\u2551).",
-    "orgao": "Foro de Santo Andr\u00e9 - 2\u00aa Vara C\u00edvel&nbsp;&nbsp; Publica\u00e7\u00e3o: Inti",
+    "resumo": "Senten\u00e7a. Contrarraz\u00f5es \u2014 15 dias \u00fateis (CPC art. 1.010 \u00a72\u00ba).",
+    "orgao": "Foro de Santo Andr\u00e9 - 2\u00aa Vara C\u00edvel *Publica\u00e7\u00e3o: * Intima\u00e7\u00e3o Int",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -240,13 +240,13 @@
   {
     "numero": "0031400-30.2004.5.02.0028",
     "tribunal": "TRT2",
-    "tipoAto": "Senten\u251c\u00baa",
+    "tipoAto": "Senten\u00e7a",
     "dataPublicacao": null,
     "diasUteis": 8,
-    "prazoLegal": "Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895)",
+    "prazoLegal": "Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895)",
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Recurso Ordin\u251c\u00edrio \u00d4\u00c7\u00f6 8 dias \u251c\u2551teis (CLT art. 895).",
-    "orgao": "Foro de Campinas - 6\u00aa Vara C\u00edvel&nbsp;&nbsp; Publica\u00e7\u00e3o: Intima\u00e7",
+    "resumo": "Senten\u00e7a. Recurso Ordin\u00e1rio \u2014 8 dias \u00fateis (CLT art. 895).",
+    "orgao": "Foro de Campinas - 6\u00aa Vara C\u00edvel *Publica\u00e7\u00e3o: * Intima\u00e7\u00e3o Intima",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
@@ -256,14 +256,14 @@
   },
   {
     "numero": "0128917-14.2012.8.26.0100",
-    "tribunal": "STJ",
-    "tipoAto": "Senten\u251c\u00baa",
+    "tribunal": "TJSP",
+    "tipoAto": "Senten\u00e7a",
     "dataPublicacao": null,
     "diasUteis": 15,
-    "prazoLegal": "Apela\u251c\u00ba\u251c\u00fao \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 1.003 \u252c\u00ba5\u252c\u2551)",
+    "prazoLegal": "Apela\u00e7\u00e3o \u2014 15 dias \u00fateis (CPC art. 1.003 \u00a75\u00ba)",
     "vencimento": null,
-    "resumo": "Senten\u251c\u00baa. Apela\u251c\u00ba\u251c\u00fao \u00d4\u00c7\u00f6 15 dias \u251c\u2551teis (CPC art. 1.003 \u252c\u00ba5\u252c\u2551).",
-    "orgao": "Foro de Itapecerica da Serra - 4\u00aa Vara&nbsp;&nbsp; Publica\u00e7\u00e3o: I",
+    "resumo": "Senten\u00e7a. Apela\u00e7\u00e3o \u2014 15 dias \u00fateis (CPC art. 1.003 \u00a75\u00ba).",
+    "orgao": "Foro de Itapecerica da Serra - 4\u00aa Vara *Publica\u00e7\u00e3o: * Intima\u00e7\u00e3o",
     "advogados": [
       "THIAGO TREVIZANI ROCCHETTI"
     ],
